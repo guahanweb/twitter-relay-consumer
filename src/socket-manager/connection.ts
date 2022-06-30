@@ -69,6 +69,6 @@ function heartbeat(this: any) {
     clearTimeout(this.pingTimeout);
 
     this.pingTimeout = setTimeout(() => {
-        this.terminat();
+        this.terminate();
     }, 30000 + 1000);
 }

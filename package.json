@@ -8,6 +8,7 @@
     "clean": "rm -rf dist build",
     "dev": "NODE_ENV=development LOG_LEVEL=verbose nodemon --watch './src/**' --ext 'ts,json' --exec 'ts-node src/index.ts'",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "report": "ts-node scripts/report.ts",
     "start": "ts-node src/index.ts",
     "start:prod": "npm run build && node dist",
     "test": "jest",
