@@ -1,44 +1,56 @@
-import * as path from 'path';
+import * as fs from 'node:fs'
+import * as path from 'node:path';
 import * as dotenv from 'dotenv';
 
-dotenv.config({
-    path: path.resolve(__dirname, '../.env'),
-});
+const env = loadFromEnv('NODE_ENV', 'development');
+const loadEnv = parseInt(loadFromEnv('LOAD_ENV_FILE', 1));
 
-export interface ServerConfig {
-    port: number | null;
-    host?: string | null;
+if (loadEnv) {
+    const fallback_list = [`.${env}.env`, '.env'];
+    let loaded = false;
+    for (let i = 0; i < fallback_list.length; i++) {
+        const filename = path.resolve(__dirname, '..', fallback_list[i]);
+        if (!loaded && fs.existsSync(filename)) {
+            dotenv.config({
+                path: filename,
+            });
+            loaded = true;
+        }
+    }
+}
+
+export interface RedisConfig {
+    host: string | null;
+    port: string | null;
+    password?: string | null;
+}
+
+export interface RelayConfig {
+    authToken: string;
+    authUrl: string;
+    websocketUrl: string;
 }
 
 export interface AppConfig {
     logLevel: string;
-
-    apiKey: string | null;
-    apiSecret: string | null;
-    bearerToken: string | null;
-
-    redisHost: string | null;
-    redisPort: string | null;
-    redisPass?: string | null;
-
-    server: ServerConfig;
+    redis: RedisConfig;
+    relay: RelayConfig;
 }
 
 const init = function(): AppConfig {
     return {
         logLevel: loadFromEnv('LOG_LEVEL', 'info'),
 
-        apiKey: loadFromEnv('API_KEY'),
-        apiSecret: loadFromEnv('API_KEY_SECRET'),
-        bearerToken: loadFromEnv('BEARER_TOKEN'),
+        redis: {
+            host: loadFromEnv('REDIS_HOST', 'localhost'),
+            port: loadFromEnv('REDIS_PORT', 6379),
+            password: loadFromEnv('REDIS_PASSWORD'),
+        },
 
-        redisHost: loadFromEnv('REDIS_HOST', 'localhost'),
-        redisPort: loadFromEnv('REDIS_PORT', 6379),
-        redisPass: loadFromEnv('REDIS_PASS'),
-
-        server: {
-            port: loadFromEnv('PORT', 3000),
-            host: loadFromEnv('HOST', 'localhost'),
+        relay: {
+            authToken: loadFromEnv('RELAY_AUTH_TOKEN', 'testing'),
+            authUrl: loadFromEnv('RELAY_AUTH_URL', 'http://localhost:3000/connect'),
+            websocketUrl: loadFromEnv('RELAY_WEBSOCKET_URL', 'ws://localhost:3000/ws'),
         }
     };
 }

@@ -49,10 +49,11 @@ export class SocketConnection extends EventEmitter {
 
     async authorize() {
         const { authToken, authUrl } = this.options;
+        const token = Buffer.from(authToken as string).toString('base64');
 
         const response = await needle('post', authUrl as string, {}, {
             headers: {
-                'authorization': `Bearer ${authToken}`,
+                'authorization': `Bearer ${token}`,
             }
         });
 
