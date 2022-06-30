@@ -44,9 +44,10 @@ local environment file with the relevant variables for the workshop.
 $ touch ./.docker.env && open ./.docker.env
 ```
 
-Within the environment file, you will provide the following variables
-(**NOTE:** the values for these variables will be provided at the
-workshop).
+Within the environment file, you will provide the following variables.
+
+> :white_check_mark: **NOTE:** redacted values will be provided by the
+> facilitator during the workshop.
 
 ```
 LOG_LEVEL=debug
