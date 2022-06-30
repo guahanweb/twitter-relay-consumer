@@ -30,7 +30,7 @@ are very straightforward.
 Clone the repository to a local directory where you will be able to
 edit the files during the workshop.
 
-```
+```bash
 $ git clone git@github.com:guahanweb/twitter-relay-consumer.git
 $ cd twitter-relay-consumer
 ```
@@ -40,7 +40,7 @@ $ cd twitter-relay-consumer
 Once you have successfully cloned the repo, you will need to create a
 local environment file with the relevant variables for the workshop.
 
-```
+```bash
 $ touch ./.docker.env && open ./.docker.env
 ```
 
@@ -49,7 +49,7 @@ Within the environment file, you will provide the following variables.
 > :white_check_mark: **NOTE:** redacted values will be provided by the
 > facilitator during the workshop.
 
-```
+```bash
 LOG_LEVEL=debug
 LOAD_ENV_FILE=0
 
@@ -68,7 +68,7 @@ to the relay service and start tracking data. Using `docker-compose`,
 you will be able to spin up a local redis instance as well as an image
 for the consumer itself.
 
-```
+```bash
 $ docker-compose up
 ```
 
@@ -77,3 +77,26 @@ application code into the container and run it with a watcher already
 in place, so you will be able to make code changes and see them take
 effect immediately.
 
+### Monitor reports over time
+
+Once your application is up and running, open a second terminal window
+or tab, and run the following script to examine the actual counts in
+a summary report:
+
+```bash
+$ npm run report
+
+> twitter-relay-consumer@1.0.0 report
+> ts-node scripts/report.ts
+
+{
+  rules: { '1542478303877124097': 69 },
+  hashtags: {
+    xbox: 3,
+    teamricochet: 2,
+    xboxseriesx: 1,
+    xboxseries: 1,
+    ...
+  }
+}
+```
