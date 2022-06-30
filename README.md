@@ -1,6 +1,6 @@
 # Twitter Relay Consumer
 
-> :warning: **Workshop specific project!** if you are not attending
+> :exclamation: **Workshop specific project!** if you are not attending
 > the [All Things Open](https://www.allthingsopen.org) workshop titled
 > *Telling Stories with Big Data*, you are likely in the wrong place!
 
@@ -14,7 +14,7 @@ the active connections to a single stream, this project will connect
 to a relay service via web socket and allow all participants to
 monitor the stream in real time.
 
-> :info: **Prerequisite:** this push-button solution requires use
+> :warning: **Prerequisite:** this push-button solution requires use
 > of `docker-compose`, so having [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 > installed is required.
 
