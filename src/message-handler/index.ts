@@ -19,11 +19,7 @@ export class MessageHandler extends EventEmitter {
     }
 
     async initialize() {
-        try {
-            await this.dao.connect();
-        } catch (err: any) {
-            throw err;
-        }
+        await this.dao.connect();
     }
 
     // for this demo, we will build a singular execution chain
